@@ -72,6 +72,8 @@ github.com/aws/aws-sdk-go/service/sts/stsiface
 github.com/beorn7/perks/quantile
 # github.com/cespare/xxhash/v2 v2.1.1
 github.com/cespare/xxhash/v2
+# github.com/clarketm/json v1.13.4
+github.com/clarketm/json
 # github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -323,6 +325,8 @@ gopkg.in/inf.v0
 gopkg.in/robfig/cron.v2
 # gopkg.in/yaml.v2 v2.2.8
 gopkg.in/yaml.v2
+# gopkg.in/yaml.v3 v3.0.0-20190709130402-674ba3eaed22
+gopkg.in/yaml.v3
 # k8s.io/api v0.17.3 => k8s.io/api v0.17.3
 k8s.io/api/admissionregistration/v1
 k8s.io/api/admissionregistration/v1beta1
@@ -588,6 +592,7 @@ k8s.io/kube-openapi/pkg/util/proto
 k8s.io/test-infra/ghproxy/ghcache
 k8s.io/test-infra/ghproxy/ghmetrics
 k8s.io/test-infra/pkg/flagutil
+k8s.io/test-infra/pkg/genyaml
 k8s.io/test-infra/prow/apis/prowjobs
 k8s.io/test-infra/prow/apis/prowjobs/v1
 k8s.io/test-infra/prow/bugzilla
@@ -595,6 +600,7 @@ k8s.io/test-infra/prow/client/clientset/versioned
 k8s.io/test-infra/prow/client/clientset/versioned/scheme
 k8s.io/test-infra/prow/client/clientset/versioned/typed/prowjobs/v1
 k8s.io/test-infra/prow/clonerefs
+k8s.io/test-infra/prow/commentpruner
 k8s.io/test-infra/prow/config
 k8s.io/test-infra/prow/config/secret
 k8s.io/test-infra/prow/entrypoint
@@ -604,21 +610,26 @@ k8s.io/test-infra/prow/gerrit/client
 k8s.io/test-infra/prow/git
 k8s.io/test-infra/prow/git/v2
 k8s.io/test-infra/prow/github
+k8s.io/test-infra/prow/github/fakegithub
 k8s.io/test-infra/prow/initupload
 k8s.io/test-infra/prow/interrupts
 k8s.io/test-infra/prow/io
 k8s.io/test-infra/prow/io/providers
 k8s.io/test-infra/prow/kube
+k8s.io/test-infra/prow/labels
 k8s.io/test-infra/prow/logrusutil
 k8s.io/test-infra/prow/pluginhelp
 k8s.io/test-infra/prow/pluginhelp/externalplugins
+k8s.io/test-infra/prow/plugins
 k8s.io/test-infra/prow/pod-utils/clone
 k8s.io/test-infra/prow/pod-utils/decorate
 k8s.io/test-infra/prow/pod-utils/downwardapi
 k8s.io/test-infra/prow/pod-utils/gcs
 k8s.io/test-infra/prow/pod-utils/wrapper
+k8s.io/test-infra/prow/repoowners
 k8s.io/test-infra/prow/sidecar
 k8s.io/test-infra/prow/simplifypath
+k8s.io/test-infra/prow/slack
 k8s.io/test-infra/prow/version
 # k8s.io/utils v0.0.0-20191114184206-e782cd3c129f
 k8s.io/utils/buffer

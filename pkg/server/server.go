@@ -155,6 +155,7 @@ func (s *Server) handleIssueComment(l *logrus.Entry, ic github.IssueCommentEvent
 	cancelMatches := releaseBlockCancelRe.FindAllStringSubmatch(ic.Comment.Body, -1)
 	matches := releaseBlockRe.FindAllStringSubmatch(ic.Comment.Body, -1)
 
+	// TODO test this logic
 	if len(cancelMatches) == 3 {
 		needsLabel = false
 		targetBranch = strings.TrimSpace(cancelMatches[0][2])
