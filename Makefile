@@ -1,10 +1,10 @@
 
-.PHONY: all deps-update
-all: deps-update
+.PHONY: all deps-update build
+all: build
 
 build:
 	go build cmd/release-blocker/release-blocker.go
 
 deps-update:
-	go mod tidy
-	go mod vendor
+	GO111MODULE=on; go mod tidy
+	GO111MODULE=on; go mod vendor
