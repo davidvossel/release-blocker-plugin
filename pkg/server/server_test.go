@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/sirupsen/logrus"
@@ -36,7 +35,7 @@ func TestHandle(t *testing.T) {
 			IssueComments: make(map[int][]github.IssueComment),
 		}
 
-		server := &Server{
+		s := &Server{
 			GHC: fc,
 		}
 
