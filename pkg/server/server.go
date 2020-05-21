@@ -68,8 +68,8 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (s *Server) hasLabel(label string, org string, repo string, num int) (bool, error) {
-	labels, err := s.GHC.GetIssueLabels(org, repo, num)
+func hasLabel(ghc githubClient, label string, org string, repo string, num int) (bool, error) {
+	labels, err := ghc.GetIssueLabels(org, repo, num)
 	if err != nil {
 		return false, fmt.Errorf("failed to get the labels on %s/%s#%d: %v", org, repo, num, err)
 	}
@@ -79,9 +79,9 @@ func (s *Server) hasLabel(label string, org string, repo string, num int) (bool,
 	return hasLabel, nil
 }
 
-func (s *Server) canLabel(org string, commentAuthor string) (bool, error) {
+func canLabel(ghc githubClient, org string, commentAuthor string) (bool, error) {
 	// only members can add blocking label.
-	ok, err := s.GHC.IsMember(org, commentAuthor)
+	ok, err := ghc.IsMember(org, commentAuthor)
 	if err != nil {
 		return false, err
 	}
@@ -155,11 +155,10 @@ func (s *Server) handleIssueComment(l *logrus.Entry, ic github.IssueCommentEvent
 	cancelMatches := releaseBlockCancelRe.FindAllStringSubmatch(ic.Comment.Body, -1)
 	matches := releaseBlockRe.FindAllStringSubmatch(ic.Comment.Body, -1)
 
-	// TODO test this logic
-	if len(cancelMatches) == 3 {
+	if len(cancelMatches) == 1 && len(cancelMatches[0]) == 2 {
 		needsLabel = false
-		targetBranch = strings.TrimSpace(cancelMatches[0][2])
-	} else if len(matches) == 2 {
+		targetBranch = strings.TrimSpace(cancelMatches[0][1])
+	} else if len(matches) == 1 && len(matches[0]) == 2 {
 		needsLabel = true
 		targetBranch = strings.TrimSpace(matches[0][1])
 	} else {
@@ -168,7 +167,7 @@ func (s *Server) handleIssueComment(l *logrus.Entry, ic github.IssueCommentEvent
 	}
 
 	// validate the user is allowed to block or unblock
-	ok, err := s.canLabel(org, commentAuthor)
+	ok, err := canLabel(s.GHC, org, commentAuthor)
 	if err != nil {
 		return err
 	}
@@ -188,7 +187,7 @@ func (s *Server) handleIssueComment(l *logrus.Entry, ic github.IssueCommentEvent
 	// TODO validate branch exists
 	label := fmt.Sprintf("release-block/%s", targetBranch)
 
-	hasLabel, err := s.hasLabel(label, org, repo, num)
+	hasLabel, err := hasLabel(s.GHC, label, org, repo, num)
 	if err != nil {
 		s.Log.WithFields(l.Data).WithError(err)
 		return err
